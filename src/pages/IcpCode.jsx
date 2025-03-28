@@ -10,6 +10,9 @@ function IcpCode() {
   const handleGoHome = () => {
     navigate("/");
   };
+  const handlecodeButtonClick = () => {
+    navigate("/library");
+  };
 
   return (
     <Box
@@ -77,7 +80,10 @@ function IcpCode() {
           placeholder="Enter Code"
           fullWidth
           onKeyDown={(e) => {
+
             if (e.key === "Enter") {
+              handlecodeButtonClick(); // Call the function when Enter is pressed
+              
               console.log(e.target.value);
               e.target.value = "";   // Log the entered value
             }

@@ -1,8 +1,23 @@
-import React from "react";
-import { Box, TextField } from "@mui/material";
-import backgroundImage from "../assets/images/osai.png"; // Replace with the correct path to your background image
+import React, { useState } from "react";
+import { Box, TextField, Grid, Typography, Button, Dialog } from "@mui/material";
+import backgroundImage from "../assets/images/osai.png";
+import logout from "../assets/images/logout.png";
+import frontSide from "../assets/images/FrontSide.png";
+import "../App.css";
 
 function Library() {
+  const [isMinted, setIsMinted] = useState(false);
+  const [dialogOpen, setDialogOpen] = useState(false);
+
+  const handleMintClick = () => {
+    setDialogOpen(true);
+  };
+
+  const handleSignInClick = () => {
+    setDialogOpen(false);
+    setIsMinted(true);
+  };
+
   return (
     <Box
       sx={{
@@ -11,148 +26,260 @@ function Library() {
         minHeight: "100vh",
         background: {
           xs: `linear-gradient(180deg, rgba(0, 0, 0, 0.50) 4.05%, #000 95.64%), url(${backgroundImage}) center / cover no-repeat`,
-          md: `linear-gradient(180deg, rgba(0, 0, 0, 0.50) 4.05%, #000 69.69%), url(${backgroundImage}) lightgray 50% / cover no-repeat`,
+          md: `linear-gradient(180deg, rgba(0, 0, 0, 0.75) 4.05%, #000 69.69%), url(${backgroundImage}) lightgray 50% / cover no-repeat`,
         },
+        
         display: "flex",
         flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
+        ...(dialogOpen && {
+          backdropFilter: "blur(40.7px)", // Apply blur only when dialog is open
+        }),
       }}
     >
       {/* Top-Right Section */}
       <Box
         sx={{
-          position: "absolute",
-          top: "20px",
-          right: "20px",
+          width: "98%",
+          marginTop: "50px",
           display: "flex",
+          justifyContent: "flex-end",
           flexDirection: "row",
           alignItems: "center",
-          gap: "10px",
+          gap: "40px",
         }}
       >
-        <TextField
-          variant="outlined"
-          placeholder="Search"
+        <Box
           sx={{
-            backgroundColor: "#FFF",
-            borderRadius: "8px",
-            "& .MuiOutlinedInput-root": {
-              borderRadius: "8px",
-            },
-            "& .MuiInputBase-input::placeholder": {
-              color: "#919191",
-              fontFamily: "DM Sans",
-              fontSize: "14px",
-              fontStyle: "normal",
-              fontWeight: 500,
-              lineHeight: "26px",
-              letterSpacing: "3px",
-              textTransform: "uppercase",
-            },
+            width: "180px",
+            height: "50px",
+            backgroundColor: "#03211D",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            cursor: "pointer",
+            color: "#FFF",
+            fontSize: "14px",
+            borderRadius: "12px",
+            fontWeight: 700,
           }}
-        />
+        >
+          0x6c4...FFF9
+        </Box>
         <Box
           component="img"
-          src={backgroundImage} // Replace with the correct image
+          src={logout}
           alt="Icon"
           sx={{
-            width: "40px",
-            height: "40px",
+            backgroundColor: "transparent",
+            width: "20px",
+            height: "20px",
             objectFit: "contain",
           }}
         />
       </Box>
-
-      {/* Main Content */}
-      <Box
+      <Grid
+        container
+        spacing={0}
         sx={{
+          marginTop: "20px",
           display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
+          flexDirection: { xs: "column", md: "row" }, // Stack vertically on xs, row on md and above
+          alignItems: "flex-start", // Align both grids to the top
+          justifyContent: "flex-start", // Align grids to the start
           gap: "20px",
-          width: { xs: "90%", md: "60%" },
+          paddingLeft: { xs: "0", md: "80px" },
+          paddingTop: { xs: "10px", md: "20px" },
         }}
       >
-        {/* Row 1 */}
-        <Box
+        {/* First Grid Item */}
+        <Grid
+          item
+          xs={12}
+          md={4}
           sx={{
             display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
+            flexDirection: "column",
             alignItems: "center",
-            width: "100%",
-            gap: "10px",
+            width: { xs: "100%", md: "80%" },
           }}
         >
           <Box
-            component="img"
-            src={backgroundImage} // Replace with the correct image
-            alt="Image"
             sx={{
-              width: "100px",
-              height: "100px",
-              objectFit: "cover",
-              borderRadius: "8px",
-            }}
-          />
-          <Box
-            sx={{
-              width: "100px",
-              height: "100px",
               display: "flex",
-              justifyContent: "center",
+              flexDirection: "column",
               alignItems: "center",
-              backgroundColor: "rgba(255, 255, 255, 0.1)",
-              borderRadius: "8px",
-              fontSize: "32px",
-              color: "#FFF",
+              width: "100%",
+              gap: "10px",
             }}
           >
-            +
+            <Box
+              component="img"
+              src={frontSide}
+              alt="Image"
+              sx={{
+                width: { xs: "90%",sm:"60%", md: "80%" },
+                height: "400px",
+                objectFit: "cover",
+                borderRadius: "8px",
+              }}
+            />
+            <Typography
+              className="montserrat-normal"
+              sx={{
+                justifyContent: "center",
+                alignItems: "center",
+                color: "#FFF",
+                fontSize: "24px",
+                fontWeight: 400,
+                paddingTop: "40px",
+                paddingBottom: "20px",
+                fontFamily: "Montserrat",
+                fontStyle: "normal",
+                lineHeight: "35px",
+              }}
+            >
+              Osai Kekkudho
+            </Typography>
+            <Button
+              className="montserrat-normal"
+              sx={{
+                justifyContent: "center",
+                alignItems: "center",
+                backgroundColor: "#E7F152",
+                border: "1px solid #E7F152",
+                borderRadius: "12px",
+                color: "#033734",
+                fontSize: "20px",
+                fontWeight: 400,
+                fontFamily: "Montserrat",
+                fontStyle: "normal",
+                width: { xs: "90%",sm:"60%", md: "190px" },
+                height: "60px",
+              }}
+              onClick={isMinted ? undefined : handleMintClick}
+            >
+              {isMinted ? "Listen Here" : "Mint SBT"}
+            </Button>
+            <Typography
+              className="montserrat-normal"
+              sx={{
+                justifyContent: "center",
+                alignItems: "center",
+                color: "rgba(255, 255, 255, 0.40)",
+                fontSize: "16px",
+                fontWeight: 400,
+                textAlign: "center", 
+                paddingTop: "20px",
+                paddingBottom: "20px",
+                fontFamily: "Montserrat",
+                fontStyle: "normal",
+                lineHeight: "26px",
+                width: { xs: "90%",sm:"60%", md: "80%" },
+              }}
+            >
+Access to this will allow you to listen to the album anywhere you want, with your wallet!            </Typography>
           </Box>
-        </Box>
+        </Grid>
 
-        {/* Row 2 */}
-        <Box
+        {/* Second Grid Item */}
+        <Grid
+          item
+          xs={12}
+          md={4}
           sx={{
             display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            width: "100%",
-            gap: "10px",
+            justifyContent: "center",
+            alignItems: "flex-start",
+            width: { xs: "100%", md: "80%" },
           }}
         >
           <Box
-            component="img"
-            src={backgroundImage} // Replace with the correct image
-            alt="Image"
             sx={{
-              width: "100px",
-              height: "100px",
-              objectFit: "cover",
-              borderRadius: "8px",
-            }}
-          />
-          <Box
-            sx={{
-              width: "100px",
-              height: "100px",
+              width: { xs: "90%",sm:"60%", md: "80%" },
+              height: "400px",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              backgroundColor: "rgba(255, 255, 255, 0.1)",
+              backgroundColor: "rgba(0, 0, 0, 0.43)",
               borderRadius: "8px",
-              fontSize: "32px",
-              color: "#FFF",
+              fontSize: "64px",
+              color: "#363636",
             }}
           >
             +
           </Box>
+        </Grid>
+      </Grid>
+
+      {/* Dialog */}
+      <Dialog
+        open={dialogOpen}
+        onClose={() => setDialogOpen(false)}
+        BackdropProps={{
+          sx: {
+            backgroundColor: "rgba(0, 0, 0, 0.5)", // Semi-transparent background
+            backdropFilter: "blur(40.7px)", // Apply blur to the entire page
+          },
+        }}
+        PaperProps={{
+          sx: {
+            background: "rgba(0, 0, 0, 0.40)",
+            // backdropFilter: "blur(40.7px)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            textAlign: "center",
+            width: "400px",
+            height: "160px",
+            padding: "20px",
+            overflow: "hidden",
+          },
+        }}
+      >
+        <Box>
+          <Typography
+            className="montserrat-normal"
+
+            sx={{
+              color: "#FFF",
+
+              fontFamily: "Montserrat",
+              fontStyle: "normal",
+              fontSize: "32px",
+              fontWeight: 400,
+              marginBottom: "30px",
+              lineHeight: "24px",
+            }}
+          >
+            Successfully Minted!
+          </Typography>
+          <Typography
+            sx={{
+              color: "#FFF",
+              fontFamily: "Montserrat",
+              fontSize: "18px",
+              fontWeight: 400,
+              marginBottom: "30px",
+            }}
+          >
+            Sign in to Listen to the Album
+          </Typography>
+          <Button
+            sx={{
+              backgroundColor: "#E7F152",
+              width: "400px",
+              color: "#033734",
+              fontSize: "16px",
+              fontWeight: 400,
+              borderRadius: "12px",
+              padding: "10px 20px",
+            }}
+            onClick={handleSignInClick}
+          >
+            Sign In
+          </Button>
         </Box>
-      </Box>
+      </Dialog>
     </Box>
   );
 }
